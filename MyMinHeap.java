@@ -1,5 +1,5 @@
 class MyMinHeap {
-    public static void main(str[] args){
+    public static void main(String[] args){
         System.out.println("Hello World");
     }
 
