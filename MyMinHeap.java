@@ -31,7 +31,7 @@ class MyMinHeap {
         heapArray.set(next - 1, ""); // The value of the bottom element does not matter as it's going to be replaced
         this.next--; // Decrement next
 
-        // Downheap to put root in the right place
+        // TODO: add downheap to put root in the right place
     }
 
     public void replace() {
