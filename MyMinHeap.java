@@ -11,12 +11,13 @@ class MyMinHeap {
             size = MIN_VAL;
         }
         heapArray = new ArrayList<String>(size);
+        heapArray.add(0, "");
         this.next = 1;
     }
 
     /** Inserts data to the next position in the heap */
     public void insert(String s) {
-        heapArray.set(next, s);
+        heapArray.add(next, s);
         this.next++;
 
         // Don't need to upheap as we can assume the CreateRuns will only ever insert
