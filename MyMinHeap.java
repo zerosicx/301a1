@@ -17,7 +17,7 @@ class MyMinHeap {
     public void replace() {
     }
 
-    public String preak() {
+    public String peek() {
         return "";
     }
 
