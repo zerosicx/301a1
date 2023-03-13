@@ -7,7 +7,7 @@ class MyMinHeap {
 
     public MyMinHeap(int size) {
         heapArray = new ArrayList<String>(size);
-        next = 1;
+        this.next = 1;
     }
 
     /** Inserts data to the next position in the heap */
@@ -22,12 +22,11 @@ class MyMinHeap {
     public void remove() {
         // Swap with bottom element
         String temp = heapArray.get(next - 1); // Get the bottom element
-        heapArray.set(0, temp);
-        heapArray.set(next - 1, "");
-        this.next--;
+        heapArray.set(1, temp); // Set it as the root
+        heapArray.set(next - 1, ""); // The value of the bottom element does not matter as it's going to be replaced
+        this.next--; // Decrement next
 
-        // Downheap to put it in the right place
-
+        // Downheap to put root in the right place
     }
 
     public void replace() {
