@@ -2,10 +2,14 @@ import java.util.ArrayList;
 
 class MyMinHeap {
 
+    private final int MIN_VAL = 4;
     private ArrayList<String> heapArray;
     private int next;
 
     public MyMinHeap(int size) {
+        if (size < MIN_VAL) {
+            size = MIN_VAL;
+        }
         heapArray = new ArrayList<String>(size);
         this.next = 1;
     }
@@ -41,5 +45,11 @@ class MyMinHeap {
     }
 
     public void reheap() {
+    }
+
+    public void printHeap() {
+        for (int i = 0; i < this.next; i++) {
+            System.out.println(heapArray.get(i));
+        }
     }
 }
