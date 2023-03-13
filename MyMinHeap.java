@@ -1,17 +1,29 @@
+import java.util.ArrayList;
+
 class MyMinHeap {
-    public static void main(String[] args){
-        System.out.println("Hello World");
+
+    ArrayList<String> heapArray;
+
+    public MyMinHeap(int size) {
+        heapArray = new ArrayList<String>(size);
     }
 
-    public void insert(){}
+    public void insert() {
+    }
 
-    public void remove(){}
+    public void remove() {
+    }
 
-    public void replace(){}
+    public void replace() {
+    }
 
-    public String preak(){return "";}
+    public String preak() {
+        return "";
+    }
 
-    public void load(){}
+    public void load() {
+    }
 
-    public void reheap(){}
+    public void reheap() {
+    }
 }
