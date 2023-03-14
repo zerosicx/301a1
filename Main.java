@@ -1,11 +1,18 @@
 public class Main {
     public static void main(String[] args) {
-        // Create a MinHeap
-        MyMinHeap mh = new MyMinHeap(23);
-        mh.insert("hello");
-        mh.insert("there");
-        mh.insert("swee");
-        mh.insert("swee");
+
+        MyMinHeap mh = new MyMinHeap(25);
+        mh.insert("c");
+        mh.insert("b");
+        mh.insert("a");
+        mh.insert("d");
         mh.printHeap();
+
+        mh.remove();
+        mh.printHeap();
+
+        mh.replace("e");
+        mh.printHeap();
+
     }
 }
