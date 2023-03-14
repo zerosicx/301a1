@@ -95,9 +95,25 @@ public class MyMinHeap {
     }
 
     public void printHeap() {
+
+        String leftChild;
+        String rightChild;
         for (int i = 1; i < next; i++) {
+
+            if (i * 2 < next) {
+                leftChild = heapArray[i * 2];
+            } else {
+                leftChild = null;
+            }
+
+            if (i * 2 + 1 < next) {
+                rightChild = heapArray[i * 2 + 1];
+            } else {
+                rightChild = null;
+            }
+
             System.out.println(
-                    heapArray[i] + " | leftChild: " + heapArray[i * 2] + " | rightChild: " + heapArray[i * 2 + 1]);
+                    heapArray[i] + " | leftChild: " + leftChild + " | rightChild: " + rightChild);
         }
     }
 

@@ -3,10 +3,11 @@ import java.io.*;
 public class CreateRuns {
 
     // Keep track of the minheap
-    MyMinHeap mh;
+    public static MyMinHeap mh;
     // Need to read and write from standard output
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+    public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    public static BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+    public static String latestOutput; // Keep track of the last thing we output to standard output
 
     /**
      * This class reads from the console and creates a MinHeap of the specified
@@ -15,8 +16,12 @@ public class CreateRuns {
      * It then reads data until minheap's "next" value is larger than the console
      * input + 1.
      * 
+     * Note: this can be tested by calling "cat dummyData.text | java CreateRuns 10"
+     * It's 10 because I currently only put 10 lines in the dummyData. It should
+     * correctly sort.
+     * 
      */
-    public void main(String[] args) {
+    public static void main(String[] args) {
 
         int size = 25; // default size of minheap is 25
 
@@ -29,10 +34,11 @@ public class CreateRuns {
         mh = new MyMinHeap(size);
         // Fill it with data
         populateHeap(size);
+        mh.printHeap();
 
     }
 
-    public void populateHeap(int size) {
+    public static void populateHeap(int size) {
         String[] lineArray = new String[size];
         String str = "";
 
