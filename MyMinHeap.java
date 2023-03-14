@@ -107,4 +107,13 @@ public class MyMinHeap {
         heapArray[p2] = temp;
     }
 
+    public String peek() {
+        if (heapArray[1] == null) {
+            System.err.println("HEAP IS EMPTY");
+            return null;
+        }
+
+        return heapArray[1];
+    }
+
 }
