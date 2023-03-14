@@ -116,4 +116,10 @@ public class MyMinHeap {
         return heapArray[1];
     }
 
+    public void load(String[] arr) {
+        for (String s : arr) {
+            insert(s);
+        }
+    }
+
 }
