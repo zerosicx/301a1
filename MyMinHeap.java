@@ -151,4 +151,9 @@ public class MyMinHeap {
         heapArray[p2] = temp;
     }
 
+    public void restoreScope() {
+        next = heapArray.length;
+        downheap();
+    }
+
 }
