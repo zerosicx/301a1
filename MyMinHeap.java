@@ -2,7 +2,7 @@ public class MyMinHeap {
 
     private final int MIN_SIZE = 4;
     private String[] heapArray;
-    private int next;
+    public int next; // So it can be accessed from the outside
 
     public MyMinHeap(int size) {
         if (size < MIN_SIZE) {
@@ -117,12 +117,6 @@ public class MyMinHeap {
         }
     }
 
-    private void swap(int p1, int p2) {
-        String temp = heapArray[p1];
-        heapArray[p1] = heapArray[p2];
-        heapArray[p2] = temp;
-    }
-
     public String peek() {
         if (heapArray[1] == null) {
             System.err.println("HEAP IS EMPTY");
@@ -136,6 +130,25 @@ public class MyMinHeap {
         for (String s : arr) {
             insert(s);
         }
+    }
+
+    /**
+     * A helper function to shorted the scope of the minheap temporarily
+     */
+    public void shortenScope() {
+        // Swap the first item and last item, then decrease count and reheap.
+        swap(1, next - 1);
+        next--;
+        downheap();
+    }
+
+    /**
+     * A helper function to swap items in the provided indeces
+     */
+    private void swap(int p1, int p2) {
+        String temp = heapArray[p1];
+        heapArray[p1] = heapArray[p2];
+        heapArray[p2] = temp;
     }
 
 }
