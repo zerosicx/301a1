@@ -34,9 +34,7 @@ public class CreateRuns {
         mh = new MyMinHeap(size);
         // Fill it with data
         populateHeap(size);
-        mh.printHeap(); // Checking the contents of the heap
         createRuns();
-
     }
 
     public static void populateHeap(int size) {
@@ -60,50 +58,50 @@ public class CreateRuns {
         boolean endOfFile = false;
 
         while (!endOfFile) { // Always expect an output value
-            // While something can be read
-
-            // If mh.next is == 1 (we have shortened the scope as much as possible)
-            // Restore the scope
-            if (mh.getNext() == 1) {
-                System.out.println(endOfRunFlag);
-                mh.restoreScope();
-                latestOutput = null;
-            }
-
-            // If the top of heap is less than latestOutput, shorten scope
-            if (latestOutput != null && mh.peek().compareTo(latestOutput) < -1) {
-                mh.shortenScope();
-            }
-
-            // If the top of heap is NOT less than latestOutput, output and read another
-            // line; print and replace
-            // Read a new line
-            // If the new line is null, set endOfFile = true
-            else {
-                System.out.println("Add to run: " + mh.peek());
-                latestOutput = mh.peek();
-                String str = "";
-
-                try {
-                    str = reader.readLine();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                if (str == null) {
-                    endOfFile = true;
-                    break;
+            if (latestOutput == null) {
+                endOfFile = printAndReplace();
+            } else {
+                String top = mh.peek();
+                if (top.compareTo(latestOutput) >= 0) {
+                    endOfFile = printAndReplace();
                 } else {
-                    mh.replace(str);
+                    mh.shortenScope();
+                    if (mh.getNext() <= 1) {
+                        System.out.println(endOfRunFlag);
+                        mh.restoreScope();
+                        latestOutput = null;
+                    }
                 }
             }
-
         }
 
         // Print the rest of the stack
-        while (mh.getNext() > 1) {
+        while (mh.getNext() - 1 > 1) {
             System.out.println("Add to run: " + mh.peek());
             mh.remove();
         }
+    }
+
+    public static boolean printAndReplace() {
+        System.out.println(mh.peek());
+        latestOutput = mh.peek();
+        // Read next value
+
+        String str = "";
+        try {
+            str = reader.readLine();
+            if (str == null) {
+                mh.remove();
+                return true;
+            } else {
+                mh.replace(str);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // System.out.println(mh.peek() + " replaced with " + str);
+
+        return false;
     }
 }

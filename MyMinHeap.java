@@ -1,14 +1,9 @@
 public class MyMinHeap {
 
-    private final int MIN_SIZE = 4;
     private String[] heapArray;
     public int next; // So it can be accessed from the outside
 
     public MyMinHeap(int size) {
-        if (size < MIN_SIZE) {
-            size = MIN_SIZE;
-        }
-
         heapArray = new String[size + 1];
         next = 1;
     }
@@ -49,24 +44,23 @@ public class MyMinHeap {
             next--;
         }
 
-        downheap();
+        downheap(1);
     }
 
-    public void downheap() {
+    public void downheap(int parent) {
         // Get the root index - set it as parent
         // While the parent is less than or equal to next//2
-        int parent = 1;
-        int smallest = 1;
+        int smallest = parent;
 
         while (parent < next) {
             int left = parent * 2;
             int right = parent * 2 + 1;
 
-            if (left < next && heapArray[left].compareTo(heapArray[parent]) <= 0) {
+            if (left < next - 1 && heapArray[left].compareTo(heapArray[parent]) <= 0) {
                 smallest = left;
             }
 
-            if (right < next && heapArray[right].compareTo(heapArray[smallest]) <= -1) {
+            if (right < next - 1 && heapArray[right].compareTo(heapArray[smallest]) <= -1) {
                 smallest = right;
             }
 
@@ -133,7 +127,7 @@ public class MyMinHeap {
         // Swap the first item and last item, then decrease count and reheap.
         swap(1, next - 1);
         next--;
-        downheap();
+        downheap(1);
     }
 
     /**
@@ -146,14 +140,23 @@ public class MyMinHeap {
     }
 
     public void restoreScope() {
-        next = heapArray.length - 1;
-        upheap(next - 1);
-
-        // start at the first non-leaf node
+        next = heapArray.length;
+        reheap();
     }
 
     public int getNext() {
         return this.next;
+    }
+
+    public void reheap() {
+        int i = next;
+        while (i > 1) {
+            if (i % 2 == 0)
+                i = i / 2;
+
+            downheap(i);
+            i--;
+        }
     }
 
 }
