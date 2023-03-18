@@ -152,12 +152,10 @@ public class MyMinHeap {
     }
 
     public void reheap() {
-        int i = next;
+        int i = next - 1;
+        // First parent
         while (i > 1) {
-            if (i % 2 == 0)
-                i = i / 2;
-
-            downheap(i);
+            upheap(i);
             i--;
         }
     }

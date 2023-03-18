@@ -6,3 +6,4 @@ Assignment One - External Merge Sort
 - Wed 15 March: CreateRuns main() and populateHeap() functions created. Correctly populates heap.
   - Notes: this can be tested by compiling then running `cat dummyData.txt | java CreateRuns 10`
   - Added helper method shortenScope() to MyMinHeap to temporarily shorted the scope of MinHeap
+- Sat 18 March: CreateRuns complete implementation. It should read an interger value from the standard input arguments and create a heap of that size. Creates variable length runs.

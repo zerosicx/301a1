@@ -57,7 +57,7 @@ public class CreateRuns {
     public static void createRuns() {
         boolean endOfFile = false;
 
-        while (!endOfFile) { // Always expect an output value
+        while (!endOfFile) {
             if (latestOutput == null) {
                 endOfFile = printAndReplace();
             } else {
