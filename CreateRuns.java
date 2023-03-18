@@ -58,18 +58,18 @@ public class CreateRuns {
         boolean endOfFile = false;
 
         while (!endOfFile) {
-            if (latestOutput == null) {
+            if (latestOutput == null || latestOutput == endOfRunFlag) {
                 endOfFile = printAndReplace();
             } else {
                 String top = mh.peek();
                 if (top.compareTo(latestOutput) >= 0) {
                     endOfFile = printAndReplace();
                 } else {
-                    mh.shortenScope();
+                    mh.shortenScope(); // Something wrong here - can result in null null null a b c d
                     if (mh.getNext() <= 1) {
-                        System.out.println(endOfRunFlag);
                         mh.restoreScope();
-                        latestOutput = null;
+                        System.out.println(endOfRunFlag);
+                        latestOutput = endOfRunFlag;
                     }
                 }
             }
@@ -82,32 +82,36 @@ public class CreateRuns {
         }
         System.out.println(endOfRunFlag);
 
-        boolean rem = mh.fixRemainingData();
-        while (mh.getNext() > 1) {
-            System.out.println(mh.peek());
-            mh.remove();
-        }
-        if (rem)
-            System.out.println(endOfRunFlag);
+        // // If there is remaining data, fix the stack ordering and print it all out.
+        // boolean rem = mh.fixRemainingData();
+        // while (mh.getNext() > 1) {
+        // System.out.println(mh.peek());
+        // mh.remove();
+        // }
+        // if (rem)
+        // System.out.println(endOfRunFlag);
     }
 
     public static boolean printAndReplace() {
-        System.out.println(mh.peek());
-        latestOutput = mh.peek();
-        // Read next value
-
         String str = "";
         try {
             str = reader.readLine();
             if (str == null) {
-                mh.remove(); // remove last value printed
+                if (latestOutput != endOfRunFlag) {
+                    System.out.println(endOfRunFlag);
+                }
+                mh.restoreScope();
                 return true;
-            } else {
-                mh.replace(str);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        System.out.println(mh.peek());
+        latestOutput = mh.peek();
+        mh.replace(str);
+        // Read next value
+
         return false;
     }
 }

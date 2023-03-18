@@ -176,6 +176,7 @@ public class MyMinHeap {
         for (String s : heapArray) {
             System.out.print(s + " ");
         }
+        System.out.println("Next: " + next);
     }
 
     public boolean fixRemainingData() {
