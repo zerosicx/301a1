@@ -77,7 +77,7 @@ public class CreateRuns {
 
         // Print the rest of the stack
         while (mh.getNext() - 1 > 1) {
-            System.out.println("Add to run: " + mh.peek());
+            System.out.println(mh.peek());
             mh.remove();
         }
     }
