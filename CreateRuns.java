@@ -76,10 +76,19 @@ public class CreateRuns {
         }
 
         // Print the rest of the stack
-        while (mh.getNext() - 1 > 1) {
+        while (mh.getNext() > 1) {
             System.out.println(mh.peek());
             mh.remove();
         }
+        System.out.println(endOfRunFlag);
+
+        boolean rem = mh.fixRemainingData();
+        while (mh.getNext() > 1) {
+            System.out.println(mh.peek());
+            mh.remove();
+        }
+        if (rem)
+            System.out.println(endOfRunFlag);
     }
 
     public static boolean printAndReplace() {
@@ -91,7 +100,7 @@ public class CreateRuns {
         try {
             str = reader.readLine();
             if (str == null) {
-                mh.remove();
+                mh.remove(); // remove last value printed
                 return true;
             } else {
                 mh.replace(str);
@@ -99,9 +108,6 @@ public class CreateRuns {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        // System.out.println(mh.peek() + " replaced with " + str);
-
         return false;
     }
 }

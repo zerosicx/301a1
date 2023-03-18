@@ -11,7 +11,7 @@ public class MyMinHeap {
     public void insert(String s) {
         heapArray[next] = s;
         upheap(next);
-        this.next++;
+        next++;
     }
 
     public void upheap(int pos) {
@@ -56,11 +56,12 @@ public class MyMinHeap {
             int left = parent * 2;
             int right = parent * 2 + 1;
 
-            if (left < next - 1 && heapArray[left].compareTo(heapArray[parent]) <= 0) {
+            if (left < next && heapArray[left].compareTo(heapArray[parent]) <= 0) {
                 smallest = left;
             }
 
-            if (right < next - 1 && heapArray[right].compareTo(heapArray[smallest]) <= -1) {
+            if (right < next
+                    && heapArray[right].compareTo(heapArray[smallest]) <= -1) {
                 smallest = right;
             }
 
@@ -116,7 +117,9 @@ public class MyMinHeap {
 
     public void load(String[] arr) {
         for (String s : arr) {
-            insert(s);
+            if (s != null) {
+                insert(s);
+            }
         }
     }
 
@@ -157,6 +160,46 @@ public class MyMinHeap {
             downheap(i);
             i--;
         }
+    }
+
+    public boolean printRemaining() {
+        boolean toReturn = false;
+        for (String s : heapArray) {
+            if (s != null) {
+                System.out.println(s);
+                toReturn = true;
+            }
+        }
+        return toReturn;
+    }
+
+    // For debugging
+    public void printEverything() {
+        for (String s : heapArray) {
+            System.out.print(s + " ");
+        }
+    }
+
+    public boolean fixRemainingData() {
+        boolean remaining = false;
+        int fixNum = heapArray.length;
+        String[] toLoad = new String[fixNum];
+
+        for (int i = 0; i < fixNum; i++) { // Add all values
+            if (heapArray[i] != null) {
+                toLoad[i] = heapArray[i];
+                remaining = true;
+            }
+        }
+
+        clearHeap();
+        load(toLoad);
+        return remaining;
+    }
+
+    public void clearHeap() {
+        heapArray = new String[heapArray.length];
+        next = 1;
     }
 
 }
