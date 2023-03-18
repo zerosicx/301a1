@@ -20,8 +20,6 @@ public class MyMinHeap {
     }
 
     public void upheap(int pos) {
-        System.out.println("Upheaping");
-
         int child = pos;
 
         while (child > 1) {
@@ -44,6 +42,7 @@ public class MyMinHeap {
 
         if (root == lastLeafIndex) {
             heapArray[lastLeafIndex] = null; // Set empty string
+            next--;
         } else { // Otherwise, swap
             swap(root, lastLeafIndex);
             heapArray[lastLeafIndex] = null;
@@ -56,7 +55,6 @@ public class MyMinHeap {
     public void downheap() {
         // Get the root index - set it as parent
         // While the parent is less than or equal to next//2
-        System.out.println("Downheaping");
         int parent = 1;
         int smallest = 1;
 
@@ -64,7 +62,7 @@ public class MyMinHeap {
             int left = parent * 2;
             int right = parent * 2 + 1;
 
-            if (left < next && heapArray[left].compareTo(heapArray[parent]) <= -1) {
+            if (left < next && heapArray[left].compareTo(heapArray[parent]) <= 0) {
                 smallest = left;
             }
 
@@ -85,12 +83,8 @@ public class MyMinHeap {
     }
 
     public void replace(String s) {
-        // Print the top node if not null
-        System.out.println(heapArray[1]);
-
         // Remove the top
         remove();
-        printHeap();
         insert(s);
     }
 
@@ -152,8 +146,14 @@ public class MyMinHeap {
     }
 
     public void restoreScope() {
-        next = heapArray.length;
-        downheap();
+        next = heapArray.length - 1;
+        upheap(next - 1);
+
+        // start at the first non-leaf node
+    }
+
+    public int getNext() {
+        return this.next;
     }
 
 }
