@@ -11,5 +11,15 @@ public class Main {
 
         DistributeRuns dr = new DistributeRuns(fileNum);
 
+        /* Testing functionality of NodeMinHeap */
+        // Node n2 = new Node("World", 2);
+        // Node n1 = new Node("Hello", 1);
+
+        // Node[] nodeArray = new Node[] { n1, n2 };
+
+        // NodeMinHeap nmh = new NodeMinHeap(2);
+        // nmh.load(nodeArray);
+        // nmh.printEverything();
+
     }
 }
