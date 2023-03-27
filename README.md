@@ -9,3 +9,8 @@ Assignment One - External Merge Sort
 - Sat 18 March: CreateRuns complete implementation. It should read an interger value from the standard input arguments and create a heap of that size. Creates variable length runs.
   - Added reheap() that makes use of upheap(). *Needs refactoring as it may not be very efficient*
   - Added helper methods for debugging
+- Mon 27 March: completed implementation of DistributeRuns that distributes data into k-number of files.
+  - Added code into Main.java for testing implementation
+  - `cat MobyDick.txt | java CreateRuns 10 | java Main 4` will distribute the CreateRuns output into 4 files.
+- Mon 27 March: impemented Node and NodeMinHeap in order to keep track of lines and what files they belong to. Required for MergeSort.java to be implemented soon.
+  - TODO: refactor reheap() to start from the middle of the heap array.
