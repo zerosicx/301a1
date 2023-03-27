@@ -1,23 +1,15 @@
 public class Main {
     public static void main(String[] args) {
 
-        // MyMinHeap mh = new MyMinHeap(2);
-        // mh.load(new String[] { "p", "o" });
-        // mh.printHeap();
-        // System.out.println();
+        // Get an input from standard input
+        int defaultVal = 2;
+        int fileNum = defaultVal;
 
-        // System.out.println(mh.peek());
-        // mh.replace("n");
-        // mh.printHeap();
-        // System.out.println();
+        if (args.length > 0) {
+            fileNum = Integer.parseInt(args[0]);
+        }
 
-        // System.out.println(mh.peek());
-        // mh.replace("i");
-        // mh.printHeap();
-        // System.out.println();
-
-
-        DistributeRuns dr = new DistributeRuns(2);
+        DistributeRuns dr = new DistributeRuns(fileNum);
 
     }
 }
