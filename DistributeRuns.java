@@ -2,13 +2,12 @@ import java.io.*;
 
 public class DistributeRuns {
 
-    public static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));;
+    private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));;
 
     // list of temporary files
     public static File[] fileList;
     private static int pointer = 0;
     private static PrintWriter[] writerList;
-    private static String endOfRunFlag = "-----END-OF-RUN-----";
 
     /**
      * Constructor class
@@ -37,16 +36,13 @@ public class DistributeRuns {
      * Accepts standart input
      */
     public void accept() {
-        // read from standard input
-
         try {
-            String run = reader.readLine();
 
-            // System.out.println(s);
-            while (run != null) {
+            String runLine = reader.readLine();
+            while (runLine != null) {
                 // need to distribute the inputs evenly among the files
-                distribute(run);
-                run = reader.readLine();
+                distribute(runLine);
+                runLine = reader.readLine();
             }
 
         } catch (Exception ex) {
@@ -57,9 +53,9 @@ public class DistributeRuns {
     /**
      * Distributes the input run into text files
      * 
-     * @param run The run to be distributed
+     * @param runLine A line from run to be written in a file
      */
-    public void distribute(String run) {
+    public void distribute(String runLine) {
 
         // check if reached the end of the file list and reset pointer
         if (pointer == fileList.length) {
@@ -67,11 +63,11 @@ public class DistributeRuns {
         }
 
         try {
-            // print to the correct file and point to the next writer
+            // print to the correct file and point to the next writer at the end of the run
             PrintWriter fileWriter = writerList[pointer];
-            fileWriter.println(run);
+            fileWriter.println(runLine);
 
-            if (run.equals(endOfRunFlag)) { // Only increment the pointer at the end of the run
+            if (runLine.equals(CreateRuns.endOfRunFlag)) { 
                 pointer++;
             }
 
@@ -97,6 +93,9 @@ public class DistributeRuns {
         }
     }
 
+    /**
+     * Returns the list of files where the runs are distributed into
+    */
     public File[] getFileList() {
         return fileList;
     }
