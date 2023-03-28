@@ -14,3 +14,9 @@ Assignment One - External Merge Sort
   - `cat MobyDick.txt | java CreateRuns 10 | java Main 4` will distribute the CreateRuns output into 4 files.
 - Mon 27 March: impemented Node and NodeMinHeap in order to keep track of lines and what files they belong to. Required for MergeSort.java to be implemented soon.
   - TODO: refactor reheap() to start from the middle of the heap array.
+- Tue 28 March: Primary implementation for MergeRuns(). Merges data using external merge sort algorithm. Makes use of DistributeRuns.
+
+# TODO:
+- Make reheap() more efficient. It currently upheaps every single node, but it shouldn't need to. It should start in the middle (according to tony) and downheap (?)
+- Remove the endOfRunFlag from the output of the final file in MergeRuns
+- Delete all empty files from MergeRuns algorithm. Tried using the helper function removeEmptyFiles() but it won't remove them due to a single "" being printed when the PrintWriter is closed.
