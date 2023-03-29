@@ -252,7 +252,7 @@ class MergeRuns {
      * 
      * @param f
      */
-    private static void printToOutput(File f) {
+    private static void printToFile(File f) {
 
         File finalOutput = new File("finalOutput.txt");
 
@@ -270,6 +270,27 @@ class MergeRuns {
 
             reader.close();
             pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Helper function to turn the final single temporary file into a permanent
+     * file.
+     * 
+     * @param f
+     */
+    private static void printToOutput(File f) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+
+            String str = reader.readLine();
+            while (str != null && !str.equals(CreateRuns.endOfRunFlag)) {
+                System.out.println(str);
+                str = reader.readLine();
+            }
+            reader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
