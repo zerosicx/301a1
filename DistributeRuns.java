@@ -67,7 +67,7 @@ public class DistributeRuns {
             PrintWriter fileWriter = writerList[pointer];
             fileWriter.println(runLine);
 
-            if (runLine.equals(CreateRuns.endOfRunFlag)) { 
+            if (runLine.equals(CreateRuns.endOfRunFlag)) {
                 pointer++;
             }
 
@@ -84,9 +84,10 @@ public class DistributeRuns {
     public void createFiles(int files) {
         for (int i = 0; i < files; i++) {
             try {
-                String filename = "temp" + (i + 1);
-                fileList[i] = new File(filename);
-                writerList[i] = new PrintWriter(new BufferedWriter(new FileWriter(filename)), true);
+                File temp = File.createTempFile("temp" + (i + 1), ".txt");
+                // File temp = new File("temp" + (i + 1) + ".txt");
+                fileList[i] = temp;
+                writerList[i] = new PrintWriter(new BufferedWriter(new FileWriter(fileList[i])), true);
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
             }
@@ -95,7 +96,7 @@ public class DistributeRuns {
 
     /**
      * Returns the list of files where the runs are distributed into
-    */
+     */
     public File[] getFileList() {
         return fileList;
     }

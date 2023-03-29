@@ -4,6 +4,7 @@ import java.util.Arrays;
 class MergeRuns {
 
     public static File[] fileArray; // to keep track of what file to write to
+    public static PrintWriter pw;
     public static BufferedReader[] brArray; // to read from every file
 
     public static void main(String[] args) {
@@ -15,7 +16,7 @@ class MergeRuns {
         DistributeRuns dr = new DistributeRuns(fileNum);
         fileArray = dr.getFileList();
 
-        merge();
+        printToOutput(merge());
         removeEmptyFiles();
         System.out.println("Merged!");
     }
@@ -56,7 +57,7 @@ class MergeRuns {
                 // While not ALL of the files have ended
                 while (!allTrue(eofFlagArray)) {
                     // The file to output current run to
-                    PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(outputFileArr[currFile], true)));
+                    pw = new PrintWriter(new BufferedWriter(new FileWriter(outputFileArr[currFile], true)));
 
                     for (int i = 0; i < nodeArray.length; i++) {
                         String str = brArray[i].readLine();
@@ -128,8 +129,8 @@ class MergeRuns {
 
                 // Empty the files in fileArray
                 for (int i = 0; i < fileArray.length; i++) {
-                    PrintWriter pw = new PrintWriter(fileArray[i]);
-                    pw.close();
+                    PrintWriter delete = new PrintWriter(fileArray[i]);
+                    delete.close();
                 }
 
                 // The outputFileArr => fileArray, and outputFileArr should become empty.
@@ -148,6 +149,7 @@ class MergeRuns {
             e.printStackTrace();
         }
 
+        System.out.println(fileArray[0]);
         return fileArray[0];
 
     }
@@ -191,7 +193,7 @@ class MergeRuns {
 
         try {
             for (int i = 0; i < outputFileArr.length; i++) {
-                outputFileArr[i] = File.createTempFile("temp" + (i + 1), ".txt");
+                outputFileArr[i] = File.createTempFile("tempFile" + (i + 1), ".txt");
             }
         } catch (Exception e) {
             System.err.println("Had trouble creating temporary files: " + e);
@@ -275,4 +277,25 @@ class MergeRuns {
         return false;
     }
 
+    private static void printToOutput(File f) {
+
+        File finalOutput = new File("finalOutput.txt");
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(finalOutput)));
+
+            String str = reader.readLine();
+            while (str != null && !str.equals(CreateRuns.endOfRunFlag)) {
+                // System.out.println(str);
+                pw.println(str);
+                pw.flush();
+                str = reader.readLine();
+            }
+
+            reader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
