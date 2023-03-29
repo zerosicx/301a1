@@ -149,9 +149,7 @@ class MergeRuns {
             e.printStackTrace();
         }
 
-        System.out.println(fileArray[0]);
         return fileArray[0];
-
     }
 
     /**
@@ -277,6 +275,12 @@ class MergeRuns {
         return false;
     }
 
+    /**
+     * Helper function to turn the final single temporary file into a permanent
+     * file.
+     * 
+     * @param f
+     */
     private static void printToOutput(File f) {
 
         File finalOutput = new File("finalOutput.txt");
