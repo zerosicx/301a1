@@ -17,7 +17,6 @@ class MergeRuns {
         fileArray = dr.getFileList();
 
         printToOutput(merge());
-        removeEmptyFiles();
         System.out.println("Merged!");
     }
 
@@ -29,7 +28,8 @@ class MergeRuns {
      */
     public static File merge() {
         // if there are any empty files, get rid of them
-        removeEmptyFiles();
+        System.out.println("Before cleanup: " + fileArray.length);
+
         File[] outputFileArr = createOutputFiles();
         initialiseBufferedReaders();
 
@@ -153,35 +153,6 @@ class MergeRuns {
     }
 
     /**
-     * A helper function to remove empty files for clean-up.
-     */
-    private static void removeEmptyFiles() {
-        try {
-            BufferedReader br;
-            int count = 0; // to track how many files are not empty
-
-            // Try to read the number of files that are NOT null
-            for (int i = 0; i < fileArray.length; i++) {
-                br = new BufferedReader(new FileReader(fileArray[i]));
-                String s = br.readLine();
-                if (s != null)
-                    count++;
-            }
-
-            File[] notEmptyFileArray = new File[count];
-
-            // Due to the nature of distribute runs, the empty files are always
-            // at the end. Copy all files that are not empty.
-            for (int i = 0; i < count; i++)
-                notEmptyFileArray[i] = fileArray[i];
-
-            fileArray = notEmptyFileArray; // fileArray now has no empty files
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    /**
      * A helper function to create the output files
      * 
      * @return
@@ -298,6 +269,7 @@ class MergeRuns {
             }
 
             reader.close();
+            pw.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
