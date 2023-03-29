@@ -4,6 +4,7 @@ import java.util.Arrays;
 class MergeRuns {
 
     public static File[] fileArray; // to keep track of what file to write to
+    public static PrintWriter pw;
     public static BufferedReader[] brArray; // to read from every file
 
     public static void main(String[] args) {
@@ -15,8 +16,7 @@ class MergeRuns {
         DistributeRuns dr = new DistributeRuns(fileNum);
         fileArray = dr.getFileList();
 
-        merge();
-        removeEmptyFiles();
+        printToOutput(merge());
         System.out.println("Merged!");
     }
 
@@ -28,7 +28,8 @@ class MergeRuns {
      */
     public static File merge() {
         // if there are any empty files, get rid of them
-        removeEmptyFiles();
+        System.out.println("Before cleanup: " + fileArray.length);
+
         File[] outputFileArr = createOutputFiles();
         initialiseBufferedReaders();
 
@@ -56,7 +57,7 @@ class MergeRuns {
                 // While not ALL of the files have ended
                 while (!allTrue(eofFlagArray)) {
                     // The file to output current run to
-                    PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(outputFileArr[currFile], true)));
+                    pw = new PrintWriter(new BufferedWriter(new FileWriter(outputFileArr[currFile], true)));
 
                     for (int i = 0; i < nodeArray.length; i++) {
                         String str = brArray[i].readLine();
@@ -128,8 +129,8 @@ class MergeRuns {
 
                 // Empty the files in fileArray
                 for (int i = 0; i < fileArray.length; i++) {
-                    PrintWriter pw = new PrintWriter(fileArray[i]);
-                    pw.close();
+                    PrintWriter delete = new PrintWriter(fileArray[i]);
+                    delete.close();
                 }
 
                 // The outputFileArr => fileArray, and outputFileArr should become empty.
@@ -149,36 +150,6 @@ class MergeRuns {
         }
 
         return fileArray[0];
-
-    }
-
-    /**
-     * A helper function to remove empty files for clean-up.
-     */
-    private static void removeEmptyFiles() {
-        try {
-            BufferedReader br;
-            int count = 0; // to track how many files are not empty
-
-            // Try to read the number of files that are NOT null
-            for (int i = 0; i < fileArray.length; i++) {
-                br = new BufferedReader(new FileReader(fileArray[i]));
-                String s = br.readLine();
-                if (s != null)
-                    count++;
-            }
-
-            File[] notEmptyFileArray = new File[count];
-
-            // Due to the nature of distribute runs, the empty files are always
-            // at the end. Copy all files that are not empty.
-            for (int i = 0; i < count; i++)
-                notEmptyFileArray[i] = fileArray[i];
-
-            fileArray = notEmptyFileArray; // fileArray now has no empty files
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
     }
 
     /**
@@ -191,7 +162,7 @@ class MergeRuns {
 
         try {
             for (int i = 0; i < outputFileArr.length; i++) {
-                outputFileArr[i] = File.createTempFile("temp" + (i + 1), ".txt");
+                outputFileArr[i] = File.createTempFile("tempFile" + (i + 1), ".txt");
             }
         } catch (Exception e) {
             System.err.println("Had trouble creating temporary files: " + e);
@@ -275,4 +246,32 @@ class MergeRuns {
         return false;
     }
 
+    /**
+     * Helper function to turn the final single temporary file into a permanent
+     * file.
+     * 
+     * @param f
+     */
+    private static void printToOutput(File f) {
+
+        File finalOutput = new File("finalOutput.txt");
+
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(f));
+            PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(finalOutput)));
+
+            String str = reader.readLine();
+            while (str != null && !str.equals(CreateRuns.endOfRunFlag)) {
+                // System.out.println(str);
+                pw.println(str);
+                pw.flush();
+                str = reader.readLine();
+            }
+
+            reader.close();
+            pw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
