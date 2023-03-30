@@ -243,7 +243,6 @@ class MergeRuns {
             }
 
             if (count == 0) {
-                // TODO: Delete all empty files
                 return true;
             }
 
