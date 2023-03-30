@@ -16,7 +16,9 @@ class MergeRuns {
         DistributeRuns dr = new DistributeRuns(fileNum);
         fileArray = dr.getFileList();
 
-        printToOutput(merge());
+        File result = merge();
+        printToFile(result); // Debugging
+        printToOutput(result);
         // System.out.println("Merged!"); // Debugging
     }
 
