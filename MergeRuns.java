@@ -17,7 +17,7 @@ class MergeRuns {
         fileArray = dr.getFileList();
 
         printToOutput(merge());
-        System.out.println("Merged!");
+        // System.out.println("Merged!"); // Debugging
     }
 
     /**
@@ -163,6 +163,7 @@ class MergeRuns {
         try {
             for (int i = 0; i < outputFileArr.length; i++) {
                 outputFileArr[i] = File.createTempFile("tempFile" + (i + 1), ".txt");
+                outputFileArr[i].deleteOnExit();
             }
         } catch (Exception e) {
             System.err.println("Had trouble creating temporary files: " + e);

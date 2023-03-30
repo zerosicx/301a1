@@ -85,6 +85,7 @@ public class DistributeRuns {
         for (int i = 0; i < files; i++) {
             try {
                 File temp = File.createTempFile("temp" + (i + 1), ".txt");
+                temp.deleteOnExit();
                 // File temp = new File("temp" + (i + 1) + ".txt");
                 fileList[i] = temp;
                 writerList[i] = new PrintWriter(new BufferedWriter(new FileWriter(fileList[i])), true);
