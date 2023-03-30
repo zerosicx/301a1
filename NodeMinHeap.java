@@ -1,3 +1,8 @@
+/**
+ * Made by Hannah Carino 1585791
+ * and Kyle Ananayo 1558266
+ */
+
 public class NodeMinHeap {
 
     private Node[] nodeHeap;
@@ -9,6 +14,11 @@ public class NodeMinHeap {
         next = 1;
     }
 
+    /**
+     * Peek at the top Node, which has the minimum value.
+     * 
+     * @return
+     */
     public Node peek() {
         if (nodeHeap[1] == null) {
             System.err.println("HEAP IS EMPTY");
@@ -18,12 +28,23 @@ public class NodeMinHeap {
         return nodeHeap[1];
     }
 
+    /**
+     * Insert a node and upheap to ensure it's in the right place.
+     * 
+     * @param n
+     */
     public void insert(Node n) {
         nodeHeap[next] = n;
         upheap(next);
         next++;
     }
 
+    /**
+     * Upheap from a specific node position. If the parent value is proceeding the
+     * child node, swap and repeat.
+     * 
+     * @param pos
+     */
     public void upheap(int pos) {
         int child = pos;
 
@@ -37,6 +58,9 @@ public class NodeMinHeap {
         }
     }
 
+    /**
+     * Removes the top node by replacing it with the last leaf node and downheaping.
+     */
     public void remove() {
         int root = 1;
         int lastLeafIndex = next - 1;
