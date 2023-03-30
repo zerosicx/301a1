@@ -21,6 +21,9 @@ by Kyle Ananayo and Hannah Carino
   - TODO: refactor reheap() to start from the middle of the heap array.
 - Tue 28 March: Primary implementation for MergeRuns(). Merges data using external merge sort algorithm. Makes use of DistributeRuns.
   - usage: `cat MobyDick.txt | java CreateRuns <min heap size> | java MergeRuns <number of files>`
+- Wednesday 29 March:
+  - helper functions to print to standard output (console) and print to file
+  - Delete temporary files on exit
 
 # TODO:
 - Make reheap() more efficient. It currently upheaps every single node, but it shouldn't need to. It should start in the middle (according to tony) and downheap (?)
