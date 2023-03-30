@@ -27,8 +27,6 @@ class MergeRuns {
      * @return
      */
     public static File merge() {
-        // if there are any empty files, get rid of them
-        System.out.println("Before cleanup: " + fileArray.length);
 
         File[] outputFileArr = createOutputFiles();
         initialiseBufferedReaders();
